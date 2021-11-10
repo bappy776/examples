@@ -7,10 +7,16 @@ resources:
     branch: master
 
 jobs:
-- name: configure-pipelines
-  public: true
+- name: configure-self
   plan:
-    - get: concourse-examples
-      trigger: true
-    - set_pipeline: hello-world
-      file: concourse-examples/pipelines/hello-world.yml
+  - get: concourse-examples
+    trigger: true
+  - set_pipeline: reconfigure-pipelines
+    file: concourse-examples/pipelines/reconfigure-pipelines.yml
+- name: configure-pipelines
+  plan:
+  - get: concourse-examples
+    trigger: true
+    passed: [configure-self]
+  - set_pipeline: time-triggered
+    file: concourse-examples/pipelines/time-triggered.yml
