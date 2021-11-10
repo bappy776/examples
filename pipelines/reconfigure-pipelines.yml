@@ -12,4 +12,4 @@ jobs:
     - get: concourse-examples
       trigger: true
     - set_pipeline: hello-world
-      file: concourse-examples/pipelines/hello-world.yml
+      file: pipelines/hello-world.yml
