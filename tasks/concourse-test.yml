@@ -1,0 +1,24 @@
+platform: linux
+      
+image_resource:
+  type: registry-image
+  source:
+      repository: alpine/git
+inputs:
+- name: repo
+outputs:
+- name: repo
+params:
+  EMAIL: bappy776@gmail.com
+  GIT_AUTHOR_NAME: bappy776
+run:
+  path: sh
+  args:
+  - -cx
+  - |
+    cd repo
+    date +'%d/%m/%Y %H:%M:%S' > todays-date
+    git add ./todays-date
+    git config --global user.email $EMAIL
+    git config --global user.name $GIT_AUTHOR_NAME
+    git commit -m "Update date"
